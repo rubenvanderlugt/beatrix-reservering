@@ -2,6 +2,7 @@ name: Reserveer Boot Dinsdag Automatisch
 
 on:
   schedule:
+    # sync for cron activation
     # START: elke maandag om 22:58 UTC
     # Dit geeft voldoende tijd om Playwright te installeren
     # Script wacht zelf tot NL 00:00:01 en reserveert dan voor dinsdag erop
