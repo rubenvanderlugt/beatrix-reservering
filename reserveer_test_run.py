@@ -10,10 +10,9 @@ BOOT_NAAM = "St. Antonisloop"
 PLOEG_ID = "#cbxg_ploeg_p120"   # Donderslag
 
 def aankomende_zondag():
-    """Dummy testdatum: eerstvolgende zondag."""
-    nl_now = datetime.utcnow() + timedelta(hours=1)
-    dagen = (6 - nl_now.weekday()) % 7
-    return nl_now + timedelta(days=dagen)
+    vandaag = datetime.now()
+    dagen_tot_zondag = (6 - vandaag.weekday()) % 7
+    return vandaag + timedelta(days=dagen_tot_zondag)
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
