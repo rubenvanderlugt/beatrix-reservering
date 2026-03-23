@@ -6,7 +6,7 @@ on:
     # Dit geeft voldoende tijd om Playwright te installeren
     # Script wacht zelf tot NL 00:00:01 en reserveert dan voor dinsdag erop
     - cron: "00 14 * * *"
-  workflow_dispatch: {}  # handmatige test trigger
+  # workflow_dispatch: {}  # handmatige test trigger
 
 jobs:
   reservering:
