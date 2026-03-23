@@ -22,12 +22,12 @@ def dinsdag_over_een_week():
     return nl_now + timedelta(days=dagen)
 
 def wacht_tot_middernacht():
-    """Wacht tot Nederlandse tijd exact 00:00:01."""
-    print("⏳ Wachten tot NL 00:00:01...")
+    """Wacht tot Nederlandse tijd exact 00:00:00."""
+    print("⏳ Wachten tot NL 00:00:00...")
     while True:
         nl_now = datetime.utcnow() + timedelta(hours=1)
-        if nl_now.strftime("%H:%M:%S") == "00:00:01":
-            print("🎉 Het is 00:00:01 NL — starten!")
+        if nl_now.strftime("%H:%M:%S") == "00:00:00":
+            print("🎉 Het is 00:00:00 NL — starten!")
             return
         time.sleep(0.2)
 
