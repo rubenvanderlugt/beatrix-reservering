@@ -24,7 +24,7 @@ def wacht_tot_middernacht():
     # print("⏳ Wachten tot NL 00:00:00...")
     while True:
         nl_now = datetime.now(timezone.utc) + timedelta(hours=1)
-        if nl_now.strftime("%H:%M:%S") == "21:15:00":
+        if nl_now.strftime("%H:%M:%S") == "21:28:00":
             print("🎉 Het is 00:00:00 NL — starten!")
             return
         time.sleep(0.2)
