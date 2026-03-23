@@ -1,9 +1,12 @@
-name: Reserveer Boot Automatisch
+name: Reserveer Boot Dinsdag Automatisch
 
 on:
   schedule:
-    - cron: "59 22 * * 1"   # Vrijdag 23:00 UTC = Zaterdag 00:00 NL
-  workflow_dispatch: {}     # handmatige start via telefoon
+    # START: elke maandag om 21:58 UTC
+    # Dit geeft voldoende tijd om Playwright te installeren
+    # Script wacht zelf tot NL 00:00:01 en reserveert dan voor dinsdag erop
+    - cron: "58 21 * * 1"
+  workflow_dispatch: {}  # handmatige test trigger
 
 jobs:
   reservering:
@@ -23,7 +26,7 @@ jobs:
         pip install playwright
         playwright install chromium
 
-    - name: Start reserveringsscript
+    - name: Start reserveringsscript (dinsdag-versie)
       env:
         BEATRIX_USER: ${{ secrets.BEATRIX_USER }}
         BEATRIX_PASS: ${{ secrets.BEATRIX_PASS }}
