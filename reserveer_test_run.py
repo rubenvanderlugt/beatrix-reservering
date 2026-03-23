@@ -11,7 +11,7 @@ PLOEG_ID = "#cbxg_ploeg_p120"   # Donderslag
 
 def aankomende_zondag():
     """Dummy testdatum: eerstvolgende zondag (veilig, geen echte reservering)."""
-    nl_now = datetime.utcnow() + timedelta(hours=0)
+    nl_now = datetime.utcnow() + timedelta(hours=1)
     dagen = (6 - nl_now.weekday()) % 7
     return nl_now + timedelta(days=dagen)
 
