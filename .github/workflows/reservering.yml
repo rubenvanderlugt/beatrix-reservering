@@ -21,13 +21,10 @@ jobs:
     - name: Playwright installeren
       run: |
         pip install playwright
-        playwright install
+        playwright install chromium
 
-    - name: Script uitvoeren
-      run: python 
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-
-    - name: Script uitvoeren
+    - name: Start reserveringsscript
+      env:
+        BEATRIX_USER: ${{ secrets.BEATRIX_USER }}
+        BEATRIX_PASS: ${{ secrets.BEATRIX_PASS }}
       run: python reserveer_st_antonisloop.py
