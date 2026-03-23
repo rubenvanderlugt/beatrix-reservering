@@ -2,11 +2,8 @@ name: Reserveer Boot Automatisch
 
 on:
   schedule:
-      - cron: "58 22 * * *"
-  workflow_dispatch: {}  # handmatige test trigger
-    # START: elke maandag om 22:58 UTC
-    # Dit geeft voldoende tijd om Playwright te installeren
-    # Script wacht zelf tot NL 00:00:00 en reserveert dan voor 7 dagen later
+    - cron: "58 22 * * *"
+  workflow_dispatch: {}
 
 jobs:
   reservering:
@@ -19,15 +16,12 @@ jobs:
     - name: Python installeren
       uses: actions/setup-python@v5
       with:
-        python-version: "3.11"
+       python-version: "3.12"
 
     - name: Playwright installeren
       run: |
         pip install playwright
-        playwright install chromium
+        playwright install
 
     - name: Start reserveringsscript
-      env:
-        BEATRIX_USER: ${{ secrets.BEATRIX_USER }}
-        BEATRIX_PASS: ${{ secrets.BEATRIX_PASS }}
-      run: python reserveer_st_antonisloop.py
+      run: python reservering.py
