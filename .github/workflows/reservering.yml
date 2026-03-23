@@ -2,7 +2,7 @@ name: Reserveer Boot Automatisch
 
 on:
   schedule:
-    - cron: "00 21 * * *"
+    - cron: "58 21 * * *"
   workflow_dispatch: {}
 
 jobs:
