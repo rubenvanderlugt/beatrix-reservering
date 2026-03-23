@@ -2,7 +2,7 @@ name: Reserveer Boot Automatisch
 
 on:
   schedule:
-    - cron: "0 23 * * 5"   # Vrijdag 23:00 UTC = Zaterdag 00:00 NL
+    - cron: "59 22 * * 1"   # Vrijdag 23:00 UTC = Zaterdag 00:00 NL
   workflow_dispatch: {}     # handmatige start via telefoon
 
 jobs:
