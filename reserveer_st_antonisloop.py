@@ -49,16 +49,17 @@ with sync_playwright() as p:
 
     # 3. DATUM = geplande doel-datum
     doel = aankomende_geplande_dag()
-
     formatted_date = doel.strftime("%Y-%m-%d")
 
-    # Klik EXACT juiste kalenderdag via complete datum in onclick
+    # 4. Klik EXACT juiste kalenderdag via complete datum in onclick
     page.locator(f'td[onclick*="{formatted_date}"]').click()
 
-    # 4. ZOEK BOOT IN TABEL
+    # 5. ZOEK BOOT IN TABEL
     boot = page.locator(f"td:has-text('{BOOT_NAAM}')").first
 
     # 6. ZOEK EERSTE LEGE TIJDSLOT
+    # tijdcel = boot.locator("xpath=following-sibling::td[15]")     % alternatief KLIK TIJDSLOT (kolom 15 = ver rechts)
+    # tijdcel.click()                                               % alternatief
     alle_cellen = boot.locator("xpath=following-sibling::td")
     count = alle_cellen.count()
     gekozen = False
@@ -77,24 +78,19 @@ with sync_playwright() as p:
     if not gekozen:
         raise Exception("❌ Geen lege tijdslotcel gevonden!")
 
-
-    # 5. KLIK TIJDSLOT (kolom 15 = ver rechts)
-    # tijdcel = boot.locator("xpath=following-sibling::td[15]")
-    # tijdcel.click()
-
-    # --- POPUP IN IFRAME ---
+    # 7. --- POPUP IN IFRAME ---
     page.wait_for_selector("#if_bootsrc")
     frame = page.frame_locator("#if_bootsrc")
 
-    # 6. KLIK OP 'RESERVEREN' BINNEN IFRAME
+    # 8. KLIK OP 'RESERVEREN' BINNEN IFRAME
     frame.locator("#btn_reserve_txt").click()
 
-    # 7. VELDEN START / EINDTIJD INVULLEN (JUISTE SELECTORS!)
+    # 9. VELDEN START / EINDTIJD INVULLEN (JUISTE SELECTORS!)
     page.locator("#cbxg_ploeg_p120").check()
     page.fill("input[name='afstijdvan']", STARTTIJD)
     page.fill("input[name='afstijdtot']", EINDTIJD)
 
-    # 8. BEWAREN / VASTLEGGEN KNOP
+    # 10. BEWAREN / VASTLEGGEN KNOP
     page.click("#btn_saveafs_txt")
 
     print(f"Succes! Reservering uitgevoerd voor {BOOT_NAAM} op {formatted_date}")
