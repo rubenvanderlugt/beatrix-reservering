@@ -10,9 +10,10 @@ BOOT_NAAM = "St. Antonisloop"
 PLOEG_ID = "#cbxg_ploeg_p120"   # Donderslag
 
 def aankomende_zondag():
-    vandaag = datetime.now()
-    dagen_tot_zondag = (6 - vandaag.weekday()) % 7
-    return vandaag + timedelta(days=dagen_tot_zondag)
+    """Dummy testdatum: eerstvolgende zondag."""
+    nl_now = datetime.utcnow() + timedelta(hours=1)
+    dagen = (6 - nl_now.weekday()) % 7
+    return nl_now + timedelta(days=dagen)
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
@@ -25,11 +26,11 @@ with sync_playwright() as p:
     page.click("button[type='submit']")
     page.wait_for_load_state()
 
-    # NAAR RESERVERINGSPAGINA
+    # RESERVERINGSPAGINA
     page.goto("https://www.ervbeatrix.nl/snel-naar/boten-afschrijven?view=reservering")
     page.wait_for_load_state()
 
-    # TESTDATUM: A.S. zondag
+    # A.S. zondag (dummy testdatum)
     doel = aankomende_zondag()
     dag = doel.day
     page.click(f"text='{dag}'")
@@ -41,7 +42,7 @@ with sync_playwright() as p:
     tijdcel = boot.locator("xpath=following-sibling::td[15]")
     tijdcel.click()
 
-    # POPUP iframe
+    # POPUP (iframe)
     page.wait_for_selector("#if_bootsrc")
     frame = page.frame_locator("#if_bootsrc")
 
@@ -51,9 +52,12 @@ with sync_playwright() as p:
     # PLOEG: Donderslag
     page.locator(PLOEG_ID).check()
 
-    # Tijd invullen (dummy, maakt niet uit)
+    # Tijd instellen
     page.fill("input[name='afstijdvan']", "09:30")
     page.fill("input[name='afstijdtot']", "11:00")
 
-    # BEWAREN / VASTLEGGEN KNOP
+    # BEWAREN / VASTLEGGEN KNOP  <-- stond bij jou tijdelijk uit, nu weer aan
     page.click("#btn_saveafs_txt")
+
+    print(f"✔ VOLLEDIGE TEST RESERVERING UITGEVOERD voor {BOOT_NAAM} op {doel.strftime('%Y-%m-%d')}")
+    browser.close()
