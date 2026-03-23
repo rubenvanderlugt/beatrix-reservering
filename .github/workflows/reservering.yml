@@ -2,7 +2,7 @@ name: Reserveer Boot Automatisch
 
 on:
   schedule:
-    - cron: "30 19 * * *"
+    - cron: "58 22 * * *"
   workflow_dispatch: {}
 
 jobs:
@@ -16,12 +16,7 @@ jobs:
     - name: Python installeren
       uses: actions/setup-python@v5
       with:
-       python-version: "3.12"
+        python-version: "3.12"
 
-    - name: Playwright installeren
-      run: |
-        pip install playwright
-        playwright install
-
-    - name: Start reserveringsscript
-      run: python reservering.py
+    - name: Script uitvoeren
+      run: python reserveer_st_antonisloop.py
