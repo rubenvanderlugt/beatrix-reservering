@@ -14,7 +14,7 @@ EINDTIJD = "11:30"
 
 def aankomende_geplande_dag():
     nl_now = datetime.now(timezone.utc) + timedelta(hours=1) # NL wintertijd
-    dagen_tot_doel = (7 - nl_now.weekday()) % 7 # nummer is hoeveel dagen vooruit (in dit geval 7 dagen vooruit)
+    dagen_tot_doel = (8 - nl_now.weekday()) % 7 # nummer is hoeveel dagen vooruit (in dit geval 7 dagen vooruit)
     if dagen_tot_doel == 0:
         dagen_tot_doel = 7
     return nl_now + timedelta(days=dagen_tot_doel)
@@ -32,7 +32,7 @@ def wacht_tot_middernacht():
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
-
+print"nl_now"
     # 0. Wacht to X tijd
     wacht_tot_middernacht()
 
