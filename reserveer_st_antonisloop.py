@@ -14,7 +14,7 @@ EINDTIJD = "11:30"
 
 def aankomende_geplande_dag():
     nl_now = datetime.now(timezone.utc) + timedelta(hours=1) # NL wintertijd
-    dagen_tot_doel = 7 # (8 - nl_now.weekday()) % 7 # nummer is hoeveel dagen vooruit (in dit geval 7 dagen vooruit)
+    dagen_tot_doel = 7 # (X - nl_now.weekday()) % 7 # X = 1,2,3,4,5 of 6 (maandag 0, zondag 6) [maar simpelweg 7 dagen vooruit robuuster]
     if dagen_tot_doel == 0:
         dagen_tot_doel = 7
     return nl_now + timedelta(days=dagen_tot_doel)
