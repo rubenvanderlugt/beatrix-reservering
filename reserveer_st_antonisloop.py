@@ -24,7 +24,7 @@ def wacht_tot_middernacht():
     # print("⏳ Wachten tot NL 00:00:00...")
     while True:
         nl_now = datetime.now(timezone.utc) + timedelta(hours=1)
-        if nl_now.strftime("%H:%M:%S") == "09:27:00":
+        if nl_now.strftime("%H:%M:%S") == "09:31:00":
             print("🎉 Het is 00:00:00 NL — starten!")
             return
         time.sleep(0.2)
@@ -32,7 +32,7 @@ def wacht_tot_middernacht():
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
-print(nl_now)
+
     # 0. Wacht to X tijd
     wacht_tot_middernacht()
 
