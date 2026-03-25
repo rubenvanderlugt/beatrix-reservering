@@ -2,29 +2,29 @@ name: Reserveer Boot Automatisch
 
 on:
   schedule:
-    - cron: "00 21 * * 5"
-  workflow_dispatch: {}
+    - cron: "0 21 * * 5"   # Every Friday at 21:00 UTC
+  workflow_dispatch:
 
 jobs:
   reservering:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Repo ophalen
-      uses: actions/checkout@v4
+      - name: Repo ophalen
+        uses: actions/checkout@v4
 
-    - name: Python installeren
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
+      - name: Python installeren
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-    - name: Playwright installeren
-      run: |
-        pip install playwright
-        playwright install chromium
+      - name: Playwright installeren
+        run: |
+          pip install playwright
+          playwright install chromium
 
-    - name: Start reserveringsscript
-      env:
-        BEATRIX_USER: ${{ secrets.BEATRIX_USER }}
-        BEATRIX_PASS: ${{ secrets.BEATRIX_PASS }}
-      run: python reserveer_st_antonisloop.py
+      - name: Start reserveringsscript
+        env:
+          BEATRIX_USER: ${{ secrets.BEATRIX_USER }}
+          BEATRIX_PASS: ${{ secrets.BEATRIX_PASS }}
+        run: python reserveer_st_antonisloop.py
