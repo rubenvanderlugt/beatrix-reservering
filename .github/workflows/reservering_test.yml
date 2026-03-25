@@ -1,0 +1,42 @@
+name: Test V2
+
+on:
+  schedule:
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+
+jobs:
+  reservering:
+    runs-on: ubuntu-latest
+
+    # Run only on odd weeks
+    if: ${{ (steps.date.outputs.week | int) % 2 == 1 }}
+
+    steps:
+      - name: Get ISO week number
+        id: date
+        run: |
+          echo "week=$(date +%V)" >> $GITHUB_OUTPUT
+
+      - name: Show week number
+        run: |
+          echo "ISO week: ${{ steps.date.outputs.week }}"
+
+      - name: Repo ophalen
+        uses: actions/checkout@v4
+
+      - name: Python installeren
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Playwright installeren
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      - name: Start reserveringsscript
+        env:
+          BEATRIX_USER: ${{ secrets.BEATRIX_USER }}
+          BEATRIX_PASS: ${{ secrets.BEATRIX_PASS }}
+        run: python reserveer_st_antonisloop.py
