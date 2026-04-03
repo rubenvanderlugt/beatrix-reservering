@@ -1,7 +1,7 @@
 name: Reserveer Boot Automatisch
 
 on:
-  schedule:
+  #schedule:
     - cron: "0 21 * * 5"   # Every Friday at 21:00 UTC
   workflow_dispatch:
 
